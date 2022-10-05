@@ -3,7 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Cotisation;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 
 class CotisationCrudController extends AbstractCrudController
 {
@@ -12,14 +18,23 @@ class CotisationCrudController extends AbstractCrudController
         return Cotisation::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            IdField::new('id')->hideOnForm(),
+            TextField::new('label'),
+            AssociationField::new('cotisationType'),
+            MoneyField::new('amount')->setCurrency('EUR')->setStoredAsCents(false),
+            DateField::new('startDate'),
+            DateField::new('endDate'),
+            AssociationField::new('fiscalYear'),
         ];
     }
-    */
+
+    public function persistEntity(EntityManagerInterface $em, $entityInstance): void
+    {
+        if(!$entityInstance instanceof Cotisation) return;
+        //$entityInstance->setCreatedAt(new \DateTimeImmutable);
+        parent::persistEntity($em, $entityInstance);
+    }
 }

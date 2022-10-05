@@ -14,7 +14,7 @@ class FiscalYear
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 50)]
     private ?string $title = null;
 
     #[ORM\Column]
@@ -77,5 +77,10 @@ class FiscalYear
         $this->endDate = $endDate;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }
