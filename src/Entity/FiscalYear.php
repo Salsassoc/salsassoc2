@@ -14,21 +14,45 @@ class FiscalYear
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $title = null;
+
+    #[ORM\Column]
+    private ?bool $isCurrent = false;
+
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $startDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\Column]
-    private ?bool $isCurrent = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $title = null;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function isIsCurrent(): ?bool
+    {
+        return $this->isCurrent;
+    }
+
+    public function setIsCurrent(bool $isCurrent): self
+    {
+        $this->isCurrent = $isCurrent;
+
+        return $this;
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -51,30 +75,6 @@ class FiscalYear
     public function setEndDate(\DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    public function isIsCurrent(): ?bool
-    {
-        return $this->isCurrent;
-    }
-
-    public function setIsCurrent(bool $isCurrent): self
-    {
-        $this->isCurrent = $isCurrent;
-
-        return $this;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(?string $title): self
-    {
-        $this->title = $title;
 
         return $this;
     }

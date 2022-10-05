@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Cotisation;
 use App\Entity\CotisationType;
 use App\Entity\FiscalYear;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -40,7 +41,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Memberships');
         yield MenuItem::linkToCrud('Members', 'fa fa-people-group', FiscalYear::class);
         yield MenuItem::linkToCrud('Memberships', 'fa fa-handshake', FiscalYear::class);
-        yield MenuItem::linkToCrud('Cotisations', 'fa fa-file-contract', FiscalYear::class);
+        yield MenuItem::linkToCrud('Cotisations', 'fa fa-file-contract', Cotisation::class);
 
         yield MenuItem::section('Accounting');
 
