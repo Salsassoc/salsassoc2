@@ -37,18 +37,15 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::section('Dashboard', 'fa fa-home');
 
-        yield MenuItem::section('Members');
         yield MenuItem::section('Memberships');
+        yield MenuItem::linkToCrud('Members', 'fa fa-people-group', FiscalYear::class);
+        yield MenuItem::linkToCrud('Memberships', 'fa fa-handshake', FiscalYear::class);
+        yield MenuItem::linkToCrud('Cotisations', 'fa fa-file-contract', FiscalYear::class);
+
         yield MenuItem::section('Accounting');
 
         yield MenuItem::section('Settings');
-        yield MenuItem::subMenu('Fiscal years', 'fas fa-bars')->setSubItems([
-            MenuItem::linkToCrud('Add fiscal year', 'fas fa-plus', FiscalYear::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Show fiscal years', 'fas fa-eye', FiscalYear::class)
-        ]);
-        yield MenuItem::subMenu('Cotisation type', 'fas fa-gear')->setSubItems([
-            MenuItem::linkToCrud('Add cotisation type', 'fas fa-plus', CotisationType::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Show cotisation type', 'fas fa-eye', CotisationType::class)
-        ]);
+        yield MenuItem::linkToCrud('Fiscal years', 'fa fa-calendar', FiscalYear::class);
+        yield MenuItem::linkToCrud('Cotisation type', 'fa fa-file-contract', CotisationType::class);
     }
 }
