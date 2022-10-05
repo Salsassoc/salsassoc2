@@ -44,6 +44,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Cotisations', 'fa fa-file-contract', Cotisation::class);
 
         yield MenuItem::section('Accounting');
+        yield MenuItem::linkToCrud('Operations', 'fa fa-money-bill-transfer', FiscalYear::class);
+        yield MenuItem::linkToCrud('Accounts', 'fa fa-building-columns', FiscalYear::class);
+        yield MenuItem::linkToCrud('Operation categories', 'fa fa-list', CotisationType::class);
 
         yield MenuItem::section('Settings');
         yield MenuItem::linkToCrud('Fiscal years', 'fa fa-calendar', FiscalYear::class);
