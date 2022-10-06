@@ -14,7 +14,7 @@ final class Version20221005231000 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Create cotisation';
+        return 'Create cotisation tables';
     }
 
     public function up(Schema $schema): void

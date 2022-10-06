@@ -11,7 +11,7 @@ final class Version20221005230700 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Create fiscal_year';
+        return 'Create fiscal_year table';
     }
 
     public function up(Schema $schema): void
