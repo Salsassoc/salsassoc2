@@ -42,9 +42,9 @@ class MemberCrudController extends AbstractCrudController
             TextField::new('phonenumber2'),
             BooleanField::new('isMember'),
             BooleanField::new('allowImageRights'),
-            TextEditorField::new('comments'),
-            DateTimeField::new('createdAt')->hideOnForm(),
-            DateTimeField::new('updatedAt')->hideOnForm(),
+            TextEditorField::new('comments')->hideOnIndex(),
+            DateTimeField::new('createdAt')->hideOnForm()->hideOnIndex(),
+            DateTimeField::new('updatedAt')->hideOnForm()->hideOnIndex(),
         ];
     }
 
