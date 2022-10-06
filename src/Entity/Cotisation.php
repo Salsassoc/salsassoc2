@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CotisationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,6 +35,14 @@ class Cotisation
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?CotisationType $cotisationType = null;
+
+    #[ORM\OneToMany(mappedBy: 'cotisation', targetEntity: MembershipCotisation::class)]
+    private Collection $membershipCotisations;
+
+    public function __construct()
+    {
+        $this->membershipCotisations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -107,6 +117,36 @@ class Cotisation
     public function setCotisationType(?CotisationType $cotisationType): self
     {
         $this->cotisationType = $cotisationType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MembershipCotisation>
+     */
+    public function getMembershipCotisations(): Collection
+    {
+        return $this->membershipCotisations;
+    }
+
+    public function addMembershipCotisation(MembershipCotisation $membershipCotisation): self
+    {
+        if (!$this->membershipCotisations->contains($membershipCotisation)) {
+            $this->membershipCotisations->add($membershipCotisation);
+            $membershipCotisation->setCotisation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMembershipCotisation(MembershipCotisation $membershipCotisation): self
+    {
+        if ($this->membershipCotisations->removeElement($membershipCotisation)) {
+            // set the owning side to null (unless already changed)
+            if ($membershipCotisation->getCotisation() === $this) {
+                $membershipCotisation->setCotisation(null);
+            }
+        }
 
         return $this;
     }

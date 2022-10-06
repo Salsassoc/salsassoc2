@@ -6,6 +6,9 @@ use App\Entity\Cotisation;
 use App\Entity\CotisationType;
 use App\Entity\FiscalYear;
 use App\Entity\Member;
+use App\Entity\Membership;
+use App\Entity\MembershipType;
+use App\Entity\PaymentMethod;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -41,7 +44,7 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Memberships');
         yield MenuItem::linkToCrud('Members', 'fa fa-people-group', Member::class);
-        yield MenuItem::linkToCrud('Memberships', 'fa fa-handshake', FiscalYear::class);
+        yield MenuItem::linkToCrud('Memberships', 'fa fa-handshake', Membership::class);
         yield MenuItem::linkToCrud('Cotisations', 'fa fa-file-contract', Cotisation::class);
 
         yield MenuItem::section('Accounting');
@@ -52,5 +55,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Settings');
         yield MenuItem::linkToCrud('Fiscal years', 'fa fa-calendar', FiscalYear::class);
         yield MenuItem::linkToCrud('Cotisation type', 'fa fa-file-contract', CotisationType::class);
+        yield MenuItem::linkToCrud('Membership type', 'fa fa-handshake', MembershipType::class);
+        yield MenuItem::linkToCrud('Payment method', 'fa fa-credit-card', PaymentMethod::class);
     }
 }
