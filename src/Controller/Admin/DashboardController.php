@@ -9,6 +9,7 @@ use App\Entity\Member;
 use App\Entity\Membership;
 use App\Entity\MembershipType;
 use App\Entity\PaymentMethod;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -53,6 +54,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud(t('menu.operations'), 'fa fa-money-bill-transfer', FiscalYear::class);
         yield MenuItem::linkToCrud(t('menu.accounts'), 'fa fa-building-columns', FiscalYear::class);
         yield MenuItem::linkToCrud(t('menu.operation_categories'), 'fa fa-list', CotisationType::class);
+
+        yield MenuItem::section(t('menu.users'));
+        yield MenuItem::linkToCrud(t('menu.users'), 'fa fa-users', User::class);
 
         yield MenuItem::section(t('menu.settings'));
         yield MenuItem::linkToCrud(t('menu.fiscal_years'), 'fa fa-calendar', FiscalYear::class);
