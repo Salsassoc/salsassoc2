@@ -3,9 +3,8 @@ Salsassoc
 
 Salsassoc is a web application to manage an association.
 
-- Github: https://github.com/Jet1oeil/opendbviewer
-- Developer website: http://www.jet1oeil.com/
-- Bugs reporting: https://github.com/Jet1oeil/opendbviewer/issues
+- Github: https://github.com/Salsassoc/salsassoc2
+- Bugs reporting: https://github.com/Salsassoc/salsassoc2/issues
 
 Features
 --------
