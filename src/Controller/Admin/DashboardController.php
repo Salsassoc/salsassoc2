@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\Translation\t;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -40,22 +41,22 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::section('Dashboard', 'fa fa-home');
+        yield MenuItem::section(t('menu.dashboard'), 'fa fa-home');
 
-        yield MenuItem::section('Memberships');
-        yield MenuItem::linkToCrud('Members', 'fa fa-people-group', Member::class);
-        yield MenuItem::linkToCrud('Memberships', 'fa fa-handshake', Membership::class);
-        yield MenuItem::linkToCrud('Cotisations', 'fa fa-file-contract', Cotisation::class);
+        yield MenuItem::section(t('menu.memberships'));
+        yield MenuItem::linkToCrud(t('menu.members'), 'fa fa-people-group', Member::class);
+        yield MenuItem::linkToCrud(t('menu.memberships_plural'), 'fa fa-handshake', Membership::class);
+        yield MenuItem::linkToCrud(t('menu.cotisations'), 'fa fa-file-contract', Cotisation::class);
 
-        yield MenuItem::section('Accounting');
-        yield MenuItem::linkToCrud('Operations', 'fa fa-money-bill-transfer', FiscalYear::class);
-        yield MenuItem::linkToCrud('Accounts', 'fa fa-building-columns', FiscalYear::class);
-        yield MenuItem::linkToCrud('Operation categories', 'fa fa-list', CotisationType::class);
+        yield MenuItem::section(t('menu.accounting'));
+        yield MenuItem::linkToCrud(t('menu.operations'), 'fa fa-money-bill-transfer', FiscalYear::class);
+        yield MenuItem::linkToCrud(t('menu.accounts'), 'fa fa-building-columns', FiscalYear::class);
+        yield MenuItem::linkToCrud(t('menu.operation_categories'), 'fa fa-list', CotisationType::class);
 
-        yield MenuItem::section('Settings');
-        yield MenuItem::linkToCrud('Fiscal years', 'fa fa-calendar', FiscalYear::class);
-        yield MenuItem::linkToCrud('Cotisation type', 'fa fa-file-contract', CotisationType::class);
-        yield MenuItem::linkToCrud('Membership type', 'fa fa-handshake', MembershipType::class);
-        yield MenuItem::linkToCrud('Payment method', 'fa fa-credit-card', PaymentMethod::class);
+        yield MenuItem::section(t('menu.settings'));
+        yield MenuItem::linkToCrud(t('menu.fiscal_years'), 'fa fa-calendar', FiscalYear::class);
+        yield MenuItem::linkToCrud(t('menu.cotisation_type'), 'fa fa-file-contract', CotisationType::class);
+        yield MenuItem::linkToCrud(t('menu.membership_type'), 'fa fa-handshake', MembershipType::class);
+        yield MenuItem::linkToCrud(t('menu.payment_method'), 'fa fa-credit-card', PaymentMethod::class);
     }
 }
