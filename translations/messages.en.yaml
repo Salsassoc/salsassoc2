@@ -14,6 +14,10 @@ menu.membership_type: "Membership type"
 menu.payment_method: "Payment method"
 menu.users: "Users"
 
+action.show: "Show"
+
+entity.actions: "Actions"
+
 entity.user.label: "User"
 entity.user.label_plural: "Users"
 entity.user.fields.id: "Id"
@@ -71,6 +75,7 @@ entity.member.fields.allowimagerights: "Image rights"
 entity.member.fields.comments: "Comments"
 entity.member.fields.createdat: "Created at"
 entity.member.fields.updatedat: "Updated at"
+entity.member.fields.memberships: "Memberships"
 
 entity.membershiptype.label: "Membership type"
 entity.membershiptype.label_plural: "Membership types"
@@ -94,6 +99,9 @@ entity.membership.fields.phonenumber2: "Alternate phone number"
 entity.membership.fields.allowimagerights: "Image rights"
 entity.membership.fields.membershipdate: "Membership date"
 entity.membership.fields.membershiptype: "Membership type"
+entity.membership.fields.totalamount: "Total amount"
+entity.membership.fields.paymentmethod: "Payment"
 entity.membership.fields.fiscalyear: "Fiscal year"
 entity.membership.fields.comments: "Comments"
 entity.membership.fields.membershipcotisations: "Cotisations"
+

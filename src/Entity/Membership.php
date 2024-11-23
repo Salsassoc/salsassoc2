@@ -301,4 +301,26 @@ class Membership
 
         return $this;
     }
+
+    public function getTotalAmount()
+    {
+        $total = 0.0;
+        foreach($this->membershipCotisations as $membershipCotisation){
+            $total += $membershipCotisation->getAmount();
+        }
+        return $total;
+    }
+
+    public function getPaymentMethods()
+    {
+        foreach($this->membershipCotisations as $membershipCotisation){
+            return $membershipCotisation->getPaymentMethod();
+        }
+        return null;
+    }
+
+    public function __toString()
+    {
+        return $this->id;
+    }
 }

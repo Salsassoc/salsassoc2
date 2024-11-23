@@ -262,6 +262,20 @@ class Member
         return $this->memberships;
     }
 
+    public function getMembershipsByDate(): Collection
+    {
+        $memberships = $this->memberships->toArray();
+        usort($memberships, function ($a, $b) {
+            // Comparison logic for sorting by startDate in descending order
+            if ($a->getMembershipDate() === $b->getMembershipDate()) {
+                return 0;
+            }
+            return ($a->getMembershipDate() > $b->getMembershipDate()) ? -1 : 1;
+        });
+
+        return new ArrayCollection($memberships);
+    }
+
     public function addMembership(Membership $membership): self
     {
         if (!$this->memberships->contains($membership)) {

@@ -1,0 +1,57 @@
+{# templates/admin/member_detail.html.twig #}
+{% extends '@EasyAdmin/crud/edit.html.twig' %}
+
+{% block content %}
+    {{ parent() }}
+
+    <br/>
+    <h3>{{ 'entity.membership.label_plural'|trans }}</h3>
+    <br/>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>{{ 'entity.membership.fields.lastname'|trans }}</th>
+                <th>{{ 'entity.membership.fields.firstname'|trans }}</th>
+                <th>{{ 'entity.membership.fields.birthdate'|trans }}</th>
+                <th>{{ 'entity.membership.fields.city'|trans }}</th>
+                <th>{{ 'entity.membership.fields.email'|trans }}</th>
+                <th>{{ 'entity.membership.fields.phonenumber'|trans }}</th>
+                <th>{{ 'entity.membership.fields.allowimagerights'|trans }}</th>
+                <th>{{ 'entity.membership.fields.membershipdate'|trans }}</th>
+                <th>{{ 'entity.membership.fields.membershiptype'|trans }}</th>
+                <th>{{ 'entity.membership.fields.totalamount'|trans }}</th>
+                <th>{{ 'entity.membership.fields.paymentmethod'|trans }}</th>
+                <th>{{ 'entity.actions'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set member = entity.instance %}
+            {% for membership in member.getMembershipsByDate() %}
+                <tr>
+                    <td>{{ membership.lastname }}</td>
+                    <td>{{ membership.firstname }}</td>
+                    <td>{{ membership.birthdate|date('Y-m-d')}}</td>
+                    <td>{{ membership.address }} {{ membership.city }} ({{membership.zipcode}})</td>
+                    <td>{{ membership.email }}</td>
+                    <td>{{ membership.phonenumber }}</td>
+                    <td class="text-center field-boolean">
+                        {{ include('admin/field/boolean.html.twig', {'value': membership.allowImageRights}) }}
+                    </td>
+                    <td>{{ membership.membershipDate|date('Y-m-d') }}</td>
+                    <td>{{ membership.membershipType }}</td>
+                    <td>{{ membership.getTotalAmount() | number_format(2, '.', ',') }} €</td>
+                    <td>{{ membership.getPaymentMethods() }}</td>
+                    {% set url = ea_url()
+                        .setController('App\\Controller\\Admin\\MembershipCrudController')
+                        .setAction('edit')
+                        .setEntityId(membership.id)
+                        %}
+                    <td>
+                        <a href="{{ url }}">{{ 'action.show'|trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

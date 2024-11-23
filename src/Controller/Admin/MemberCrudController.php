@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Member;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -15,6 +16,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use function Symfony\Component\Translation\t;
 
 class MemberCrudController extends AbstractCrudController
@@ -29,12 +35,14 @@ class MemberCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular(t('entity.member.label'))
             ->setEntityLabelInPlural(t('entity.member.label_plural'))
+            ->overrideTemplates([
+                'crud/edit' => 'admin/member_edit.html.twig',
+            ]);
         ;
     }
 
     public function configureFields(string $pageName): iterable
     {
-
         return [
             IdField::new('id', t('entity.member.fields.id'))->hideOnForm(),
             TextField::new('lastname', t('entity.member.fields.lastname')),
@@ -52,11 +60,27 @@ class MemberCrudController extends AbstractCrudController
             TextField::new('phonenumber', t('entity.member.fields.phonenumber')),
             TextField::new('phonenumber2', t('entity.member.fields.phonenumber2'))->hideOnIndex(),
             BooleanField::new('isMember', t('entity.member.fields.ismember'))->hideOnIndex(),
-            BooleanField::new('allowImageRights', t('entity.member.fields.allowimagerights')),
+            BooleanField::new('allowImageRights', t('entity.member.fields.allowimagerights'))
+                ->renderAsSwitch($pageName === Crud::PAGE_INDEX ? false : true),
             TextEditorField::new('comments', t('entity.member.fields.comments'))->hideOnIndex(),
             DateTimeField::new('createdAt', t('entity.member.fields.createdat'))->hideOnForm()->hideOnIndex(),
             DateTimeField::new('updatedAt', t('entity.member.fields.updatedat'))->hideOnForm()->hideOnIndex(),
+            //AssociationField::new('memberships', t('entity.member.fields.memberships')),
         ];
+    }
+
+    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
+    {
+        $queryBuilder = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
+
+        // if user defined sort is not set
+        if (0 === count($searchDto->getSort())) {
+            $queryBuilder
+                ->addSelect('CONCAT(entity.lastname, \' \', entity.firstname) AS HIDDEN full_name')
+                ->addOrderBy('full_name', 'ASC');
+        }
+
+        return $queryBuilder;
     }
 
     public function updateEntity(EntityManagerInterface $em, $entityInstance): void
